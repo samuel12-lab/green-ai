@@ -2,260 +2,487 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Green 🍏</title>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;1,300&display=swap" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Green AI · Green Technologies</title>
+  <meta name="description" content="Explore green technologies (solar, wind, batteries, EVs, heat pumps, hydrogen and more) and ask Green, an AI guide to clean tech." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=Newsreader:ital,wght@0,400;1,300;1,400&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --bg: #f4f8f1;
+      --bg-2: #e8f1e3;
+      --surface: #ffffff;
+      --surface-2: #f0f6ec;
+      --border: #d5e4cd;
+      --text: #15301a;
+      --muted: #52705a;
+      --accent: #2f8f3a;
+      --accent-strong: #1f6b29;
+      --accent-soft: #dff0d9;
+      --on-accent: #ffffff;
+      --shadow: 0 20px 50px rgba(30, 70, 35, 0.12);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0b1a0d;
+        --bg-2: #0f2412;
+        --surface: #12281a;
+        --surface-2: #173220;
+        --border: #24452c;
+        --text: #dcf3d6;
+        --muted: #8fb596;
+        --accent: #5cc768;
+        --accent-strong: #7ddb88;
+        --accent-soft: #1d3d24;
+        --on-accent: #08200c;
+        --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #0b1a0d;
+      --bg-2: #0f2412;
+      --surface: #12281a;
+      --surface-2: #173220;
+      --border: #24452c;
+      --text: #dcf3d6;
+      --muted: #8fb596;
+      --accent: #5cc768;
+      --accent-strong: #7ddb88;
+      --accent-soft: #1d3d24;
+      --on-accent: #08200c;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+    html { scroll-behavior: smooth; }
     body {
-      min-height: 100vh;
-      background: linear-gradient(135deg, #0d1f0f 0%, #0f2a14 40%, #0a1a0c 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Sora', sans-serif;
-      overflow: hidden;
-      padding: 16px;
+      font-family: 'Sora', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent-strong); }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+    .serif { font-family: 'Newsreader', Georgia, serif; }
+
+    /* Nav */
+    nav {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 12px; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 600; }
+    .brand-mark {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: radial-gradient(circle at 40% 35%, #4cc057, #1a6b1a);
+      display: grid; place-items: center; font-size: 16px;
+    }
+    .nav-links { display: flex; gap: 20px; align-items: center; font-size: 14px; }
+    .nav-links a { color: var(--muted); text-decoration: none; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.btn, .nav-links a.btn:hover { color: var(--on-accent); }
+    section, header { scroll-margin-top: 60px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 18px; border-radius: 999px; border: none; cursor: pointer;
+      background: var(--accent); color: var(--on-accent);
+      font: 500 14px 'Sora', sans-serif; text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn:hover { background: var(--accent-strong); transform: translateY(-1px); }
+    .btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn.ghost:hover { background: var(--surface-2); }
+    .icon-btn {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid var(--border); background: var(--surface);
+      color: var(--text); cursor: pointer;
+      display: grid; place-items: center;
     }
 
-    .orb { position: fixed; border-radius: 50%; pointer-events: none; }
-    .orb1 { top: -80px; left: -80px; width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(60,140,60,0.18) 0%, transparent 70%); }
-    .orb2 { bottom: -100px; right: -60px; width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(80,180,80,0.12) 0%, transparent 70%); }
+    /* Hero */
+    .hero { padding: 72px 0 56px; background: radial-gradient(ellipse at top right, var(--bg-2), transparent 60%); }
+    .hero .wrap { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
+    .eyebrow { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-strong); font-weight: 600; }
+    h1 { font-family: 'Newsreader', serif; font-weight: 400; font-size: clamp(38px, 6vw, 60px); line-height: 1.08; margin: 14px 0 18px; letter-spacing: -0.01em; }
+    h1 em { color: var(--accent-strong); }
+    .lead { font-size: 17px; color: var(--muted); max-width: 520px; }
+    .hero-actions { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+    .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .stat {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px; padding: 22px; box-shadow: var(--shadow);
+    }
+    .stat b { display: block; font-family: 'Newsreader', serif; font-weight: 400; font-size: 34px; color: var(--accent-strong); line-height: 1.1; }
+    .stat span { font-size: 13px; color: var(--muted); }
 
-    .container {
-      width: 100%; max-width: 680px;
-      height: 88vh; max-height: 820px;
-      background: rgba(10,28,12,0.82);
-      backdrop-filter: blur(24px);
-      border: 1px solid rgba(80,180,80,0.18);
-      border-radius: 28px;
-      display: flex; flex-direction: column;
-      overflow: hidden;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.5);
-      position: relative; z-index: 1;
-    }
+    /* Sections */
+    section { padding: 64px 0; }
+    .section-head { max-width: 640px; margin-bottom: 32px; }
+    h2 { font-family: 'Newsreader', serif; font-weight: 400; font-size: clamp(30px, 4vw, 40px); line-height: 1.15; margin: 8px 0 10px; }
+    .section-head p { color: var(--muted); }
 
-    .header {
-      padding: 20px 24px;
-      border-bottom: 1px solid rgba(80,180,80,0.12);
-      display: flex; align-items: center; justify-content: space-between;
-      background: rgba(15,40,18,0.5);
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
+      padding: 22px; display: flex; flex-direction: column; gap: 10px;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
     }
-    .logo-wrap { display: flex; align-items: center; gap: 14px; }
-    .logo-ring {
-      width: 48px; height: 48px; border-radius: 50%;
-      background: radial-gradient(circle at 40% 35%, #3aad3a, #1a6b1a);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 24px;
-      box-shadow: 0 0 20px rgba(80,200,80,0.35);
+    .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--accent); }
+    .card .ico { width: 44px; height: 44px; border-radius: 12px; background: var(--accent-soft); display: grid; place-items: center; font-size: 22px; }
+    .card h3 { font-size: 16px; font-weight: 600; }
+    .card p { font-size: 14px; color: var(--muted); flex: 1; }
+    .card button {
+      align-self: flex-start; background: none; border: none; cursor: pointer;
+      color: var(--accent-strong); font: 500 13px 'Sora', sans-serif; padding: 4px 0;
     }
-    .logo-name {
-      font-family: 'Newsreader', serif; font-style: italic; font-weight: 300;
-      font-size: 22px; color: #a8f0a0; letter-spacing: 0.02em;
-    }
-    .logo-sub { font-size: 11px; color: rgba(140,200,140,0.5); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
-    .status-dot {
-      width: 9px; height: 9px; border-radius: 50%; background: #4de04d;
-      box-shadow: 0 0 10px rgba(77,224,77,0.7);
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+    .card button:hover { text-decoration: underline; }
 
-    .messages {
-      flex: 1; overflow-y: auto; padding: 24px 20px;
-      display: flex; flex-direction: column; gap: 14px;
-    }
-    .messages::-webkit-scrollbar { width: 4px; }
-    .messages::-webkit-scrollbar-thumb { background: rgba(74,138,74,0.25); border-radius: 4px; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; counter-reset: step; }
+    .step { background: var(--surface-2); border-radius: 20px; padding: 24px; border: 1px solid var(--border); }
+    .step::before { counter-increment: step; content: counter(step); display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-weight: 600; font-size: 14px; margin-bottom: 12px; }
+    .step h3 { font-size: 16px; margin-bottom: 6px; }
+    .step p { font-size: 14px; color: var(--muted); }
 
-    .msg-row { display: flex; align-items: flex-end; gap: 10px; animation: fadeUp 0.35s ease both; }
-    .msg-row.user { justify-content: flex-end; }
-    @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+    /* Chat */
+    .chat-section { background: var(--bg-2); }
+    .chat-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 40px; align-items: start; }
+    .suggestions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .chip {
+      border: 1px solid var(--border); background: var(--surface); color: var(--text);
+      border-radius: 999px; padding: 8px 14px; font: 400 13px 'Sora', sans-serif; cursor: pointer;
+      text-align: left;
+    }
+    .chip:hover { border-color: var(--accent); background: var(--accent-soft); }
 
-    .avatar {
-      width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
-      background: radial-gradient(circle at 40% 35%, #3aad3a, #1a6b1a);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 15px; box-shadow: 0 0 10px rgba(80,200,80,0.25);
+    .chat {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
+      box-shadow: var(--shadow); display: flex; flex-direction: column;
+      height: min(640px, 80vh); overflow: hidden;
     }
+    .chat-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+    .chat-head .who { display: flex; align-items: center; gap: 12px; }
+    .chat-head .name { font-family: 'Newsreader', serif; font-style: italic; font-size: 20px; }
+    .chat-head .sub { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); animation: pulse 2s infinite; }
+    @keyframes pulse { 50% { opacity: 0.4; } }
+    .reset { background: none; border: none; color: var(--muted); font: 12px 'Sora', sans-serif; cursor: pointer; }
+    .reset:hover { color: var(--text); }
 
-    .bubble {
-      padding: 13px 17px; border-radius: 18px;
-      font-size: 14.5px; line-height: 1.65; max-width: 75%;
-    }
-    .bubble.bot {
-      background: rgba(30,70,32,0.7);
-      border: 1px solid rgba(80,180,80,0.2);
-      color: #c8f0c0;
-      border-radius: 18px 18px 18px 4px;
-    }
-    .bubble.user {
-      background: linear-gradient(135deg, #2d7a2d, #1e5a1e);
-      border: 1px solid rgba(120,220,120,0.25);
-      color: #e8fce4;
-      border-radius: 18px 18px 4px 18px;
-    }
-    .typing { color: rgba(160,220,160,0.7); font-size: 13px; font-style: italic; }
+    .messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+    .msg { display: flex; gap: 10px; align-items: flex-end; animation: up 0.3s ease both; }
+    .msg.user { justify-content: flex-end; }
+    @keyframes up { from { opacity: 0; transform: translateY(8px); } }
+    .avatar { width: 28px; height: 28px; flex-shrink: 0; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #4cc057, #1a6b1a); display: grid; place-items: center; font-size: 14px; }
+    .bubble { padding: 12px 16px; border-radius: 18px; font-size: 14.5px; max-width: 82%; overflow-wrap: anywhere; }
+    .bubble p + p, .bubble p + ul, .bubble ul + p { margin-top: 8px; }
+    .bubble ul { padding-left: 18px; }
+    .bubble li + li { margin-top: 4px; }
+    .msg.bot .bubble { background: var(--surface-2); border: 1px solid var(--border); border-bottom-left-radius: 4px; }
+    .msg.user .bubble { background: var(--accent); color: var(--on-accent); border-bottom-right-radius: 4px; white-space: pre-wrap; }
+    .typing { display: inline-flex; gap: 4px; }
+    .typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: blink 1.2s infinite; }
+    .typing i:nth-child(2) { animation-delay: 0.2s; }
+    .typing i:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes blink { 0%, 80%, 100% { opacity: 0.25; } 40% { opacity: 1; } }
 
-    .input-area {
-      padding: 16px 20px;
-      border-top: 1px solid rgba(80,180,80,0.12);
-      display: flex; gap: 12px; align-items: flex-end;
-      background: rgba(15,40,18,0.5);
-    }
+    .composer { display: flex; gap: 10px; padding: 14px; border-top: 1px solid var(--border); align-items: flex-end; }
     textarea {
-      flex: 1; background: rgba(20,55,22,0.8);
-      border: 1px solid rgba(80,180,80,0.2); border-radius: 14px;
-      padding: 12px 16px; color: #d0f0c8;
-      font-size: 14.5px; font-family: 'Sora', sans-serif;
-      line-height: 1.5; resize: none; min-height: 46px; max-height: 120px;
-      outline: none;
+      flex: 1; resize: none; min-height: 46px; max-height: 140px;
+      background: var(--surface-2); border: 1px solid var(--border); border-radius: 14px;
+      padding: 12px 14px; color: var(--text); font: 14.5px/1.5 'Sora', sans-serif; outline: none;
     }
-    .send-btn {
-      width: 46px; height: 46px; border-radius: 13px; flex-shrink: 0;
-      background: linear-gradient(135deg, #3aad3a, #2a8a2a);
-      border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 15px rgba(60,180,60,0.35);
-      transition: opacity 0.2s;
+    textarea:focus { border-color: var(--accent); }
+    .send { width: 46px; height: 46px; border-radius: 14px; border: none; cursor: pointer; background: var(--accent); color: var(--on-accent); display: grid; place-items: center; flex-shrink: 0; }
+    .send:disabled { opacity: 0.4; cursor: default; }
+    .hint { font-size: 11px; color: var(--muted); text-align: center; padding: 0 0 10px; }
+
+    footer { padding: 32px 0; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted); }
+    footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+    @media (max-width: 860px) {
+      .hero .wrap, .chat-layout { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .nav-links a:not(.btn) { display: none; }
+      .hero { padding: 48px 0 40px; }
+      section { padding: 48px 0; }
     }
-    .send-btn:disabled { opacity: 0.4; cursor: default; }
-    .footer {
-      text-align: center; padding: 8px;
-      font-size: 10.5px; color: rgba(120,180,120,0.35);
-      letter-spacing: 0.04em; text-transform: uppercase;
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      html { scroll-behavior: auto; }
     }
   </style>
 </head>
 <body>
-  <div class="orb orb1"></div>
-  <div class="orb orb2"></div>
+  <nav>
+    <div class="wrap">
+      <a class="brand" href="#top"><span class="brand-mark">🌱</span> Green AI</a>
+      <div class="nav-links">
+        <a href="#technologies">Technologies</a>
+        <a href="#start">Get started</a>
+        <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode" title="Toggle theme"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg></button>
+        <a class="btn" href="#ask">Ask Green</a>
+      </div>
+    </div>
+  </nav>
 
-  <div class="container">
-    <div class="header">
-      <div class="logo-wrap">
-        <div class="logo-ring">🍏</div>
-        <div>
-          <div class="logo-name">Green</div>
-          <div class="logo-sub">your calm AI companion</div>
+  <header class="hero" id="top">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">Green technologies, explained</div>
+        <h1>Clean tech, <em>without the jargon.</em></h1>
+        <p class="lead">Explore the technologies powering a low-carbon world, from rooftop solar to green hydrogen, and ask Green, our AI guide, anything about them.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#ask">Ask a question →</a>
+          <a class="btn ghost" href="#technologies">Explore technologies</a>
         </div>
       </div>
-      <div class="status-dot"></div>
+      <div class="stats" aria-label="Quick facts">
+        <div class="stat"><b>~90%</b><span>drop in solar module prices since 2010</span></div>
+        <div class="stat"><b>3–4×</b><span>heat a heat pump can move per unit of electricity</span></div>
+        <div class="stat"><b>~3×</b><span>more efficient: EV motors vs. petrol engines</span></div>
+        <div class="stat"><b>~75%</b><span>of global emissions come from energy</span></div>
+      </div>
     </div>
+  </header>
 
-    <div class="messages" id="messages"></div>
-
-    <div class="input-area">
-      <textarea id="input" placeholder="Say something… 🌿" rows="1"
-        onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
-      <button class="send-btn" id="sendBtn" onclick="sendMessage()" disabled>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-          <path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
+  <section id="technologies">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">The landscape</div>
+        <h2>Green technologies</h2>
+        <p>Pick a technology to learn the basics, or send it straight to Green for a deeper explanation.</p>
+      </div>
+      <div class="grid" id="techGrid"></div>
     </div>
-    <div class="footer">Press Enter to send · Shift+Enter for new line</div>
-  </div>
+  </section>
+
+  <section id="start" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Take action</div>
+        <h2>Where to start</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><h3>Measure</h3><p>Find where your energy goes: heating, transport, electricity. The biggest slice is usually the best place to start.</p></div>
+        <div class="step"><h3>Electrify</h3><p>Swap fossil-fuel equipment for efficient electric options like heat pumps, induction cooking and EVs as things wear out.</p></div>
+        <div class="step"><h3>Go renewable</h3><p>Power it all with clean electricity: rooftop solar, a green tariff, or community energy projects.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chat-section" id="ask">
+    <div class="wrap chat-layout">
+      <div>
+        <div class="eyebrow">AI guide</div>
+        <h2>Ask Green</h2>
+        <p style="color:var(--muted)">Green answers questions about clean energy, sustainable living and the footprint of technology. Answers are AI-generated; check local sources before big decisions.</p>
+        <div class="suggestions" id="suggestions"></div>
+      </div>
+
+      <div class="chat" role="region" aria-label="Chat with Green">
+        <div class="chat-head">
+          <div class="who">
+            <span class="avatar" aria-hidden="true">🌱</span>
+            <div><div class="name">Green</div><div class="sub">your clean-tech guide</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px">
+            <button class="reset" id="resetBtn">New chat</button>
+            <span class="dot" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="messages" id="messages" aria-live="polite"></div>
+        <div class="composer">
+          <textarea id="input" rows="1" placeholder="Ask about clean tech…" aria-label="Your message"></textarea>
+          <button class="send" id="sendBtn" aria-label="Send" disabled>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="hint">Enter to send · Shift+Enter for a new line</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>🌱 Green AI: green technologies, explained.</span>
+      <span>Figures are approximate and vary by region.</span>
+    </div>
+  </footer>
 
   <script>
-    const SYSTEM = `You are Green 🍏, a friendly and nature-inspired AI assistant. Your personality is warm, calm, and grounded — like a walk through a forest. Occasionally use nature metaphors. Keep responses concise but thoughtful. Use leaf/plant emojis occasionally.`;
+    // URL of the deployed backend (see worker/README.md), ending in /chat.
+    const API_URL = "";
 
+    const TECH = [
+      { ico: "☀️", name: "Solar power", text: "Photovoltaic panels turn sunlight into electricity. Now among the cheapest sources of new power in much of the world.", q: "How does solar power work, and is rooftop solar worth it for a typical home?" },
+      { ico: "🌬️", name: "Wind energy", text: "Onshore and offshore turbines harvest wind at scale, and often generate most strongly in winter when demand peaks.", q: "What are the pros and cons of onshore vs offshore wind energy?" },
+      { ico: "🔋", name: "Batteries & storage", text: "Lithium-ion, sodium-ion, pumped hydro and more: storage smooths out variable renewables.", q: "How do batteries and other storage technologies help the grid run on renewables?" },
+      { ico: "🚗", name: "Electric vehicles", text: "EVs cut tailpipe emissions to zero, and their lifetime footprint keeps falling as grids get cleaner.", q: "Are electric cars really greener than petrol cars over their whole lifetime?" },
+      { ico: "🏠", name: "Heat pumps", text: "They move heat instead of making it, delivering several units of heat for every unit of electricity.", q: "How does a heat pump work, and is it a good fit for an older house?" },
+      { ico: "💧", name: "Green hydrogen", text: "Made by splitting water with renewable power. Promising for steel, fertiliser and shipping.", q: "What is green hydrogen and where does it make the most sense to use it?" },
+      { ico: "🏭", name: "Carbon capture", text: "Capturing CO₂ from smokestacks or straight from the air, then storing or reusing it.", q: "How does carbon capture work, and how much can it realistically help?" },
+      { ico: "⚡", name: "Smart grids", text: "Digital, flexible grids that balance supply and demand in real time across millions of devices.", q: "What is a smart grid and why does it matter for clean energy?" },
+      { ico: "♻️", name: "Circular economy", text: "Designing products to be repaired, reused and recycled, including recovering battery and panel materials.", q: "How are solar panels and EV batteries recycled at end of life?" },
+      { ico: "🌾", name: "Sustainable agriculture", text: "Precision farming, regenerative practices and alternative proteins to cut land use and emissions.", q: "Which agricultural technologies cut emissions the most?" },
+      { ico: "🖥️", name: "Green computing & AI", text: "Efficient chips, clean-powered data centres and smarter software to shrink tech's footprint.", q: "What is the environmental footprint of AI and data centres, and how can it be reduced?" },
+      { ico: "🏢", name: "Efficient buildings", text: "Insulation, smart controls and low-carbon materials: the cleanest energy is the energy you don't use.", q: "What are the most cost-effective ways to make a building more energy efficient?" },
+    ];
+    const SUGGESTIONS = [
+      "Is rooftop solar worth it for me?",
+      "Heat pump vs gas boiler: which is cheaper to run?",
+      "What's the greenest way to commute?",
+      "How green is AI?",
+    ];
+    const GREETING = "Hi, I'm Green 🌱 I can help you understand clean energy, electric vehicles, heat pumps, sustainable living and more. What would you like to explore?";
+
+    // ---- Theme ----
+    const root = document.documentElement;
+    try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch {}
+    document.getElementById("themeBtn").onclick = () => {
+      const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+      root.dataset.theme = dark ? "light" : "dark";
+      try { localStorage.setItem("theme", root.dataset.theme); } catch {}
+    };
+
+    // ---- Technology cards & suggestions ----
+    const grid = document.getElementById("techGrid");
+    for (const t of TECH) {
+      const card = document.createElement("article");
+      card.className = "card";
+      card.innerHTML = `<div class="ico" aria-hidden="true">${t.ico}</div><h3></h3><p></p><button>Ask Green →</button>`;
+      card.querySelector("h3").textContent = t.name;
+      card.querySelector("p").textContent = t.text;
+      card.querySelector("button").onclick = () => ask(t.q);
+      grid.appendChild(card);
+    }
+    const sugg = document.getElementById("suggestions");
+    for (const s of SUGGESTIONS) {
+      const b = document.createElement("button");
+      b.className = "chip"; b.textContent = s; b.onclick = () => ask(s);
+      sugg.appendChild(b);
+    }
+
+    // ---- Chat ----
+    const messagesEl = document.getElementById("messages");
+    const input = document.getElementById("input");
+    const sendBtn = document.getElementById("sendBtn");
     let history = [];
-    let loading = false;
+    let busy = false;
+
+    function escapeHtml(s) {
+      return s.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    }
+    // Small, safe Markdown subset: paragraphs, "- " lists, **bold**, *italic*.
+    function renderMarkdown(text) {
+      const inline = s => escapeHtml(s)
+        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+        .replace(/(^|[^*])\*(?!\s)(.+?)\*(?!\*)/g, "$1<em>$2</em>");
+      const out = []; let list = null;
+      for (const raw of text.split("\n")) {
+        const line = raw.trim();
+        const item = line.match(/^(?:[-*•]|\d+[.)])\s+(.*)/);
+        if (item) { (list ||= []).push(`<li>${inline(item[1])}</li>`); continue; }
+        if (list) { out.push(`<ul>${list.join("")}</ul>`); list = null; }
+        if (line.startsWith("#")) out.push(`<p><strong>${inline(line.replace(/^#+\s*/, ""))}</strong></p>`);
+        else if (line) out.push(`<p>${inline(line)}</p>`);
+      }
+      if (list) out.push(`<ul>${list.join("")}</ul>`);
+      return out.join("");
+    }
 
     function addMessage(role, text) {
-      const container = document.getElementById('messages');
-      const row = document.createElement('div');
-      row.className = 'msg-row' + (role === 'user' ? ' user' : '');
-
-      if (role === 'assistant') {
-        const av = document.createElement('div');
-        av.className = 'avatar'; av.textContent = '🍏';
-        row.appendChild(av);
-      }
-
-      const bubble = document.createElement('div');
-      bubble.className = 'bubble ' + role;
-      bubble.textContent = text;
+      const row = document.createElement("div");
+      row.className = "msg " + (role === "user" ? "user" : "bot");
+      if (role !== "user") row.innerHTML = '<span class="avatar" aria-hidden="true">🌱</span>';
+      const bubble = document.createElement("div");
+      bubble.className = "bubble";
+      if (role === "user") bubble.textContent = text; else bubble.innerHTML = renderMarkdown(text);
       row.appendChild(bubble);
-      container.appendChild(row);
-      container.scrollTop = container.scrollHeight;
+      messagesEl.appendChild(row);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
       return bubble;
     }
 
-    function showTyping() {
-      const container = document.getElementById('messages');
-      const row = document.createElement('div');
-      row.className = 'msg-row'; row.id = 'typing-row';
-      const av = document.createElement('div');
-      av.className = 'avatar'; av.textContent = '🍏';
-      row.appendChild(av);
-      const bubble = document.createElement('div');
-      bubble.className = 'bubble bot';
-      bubble.innerHTML = '<span class="typing">thinking...</span>';
-      row.appendChild(bubble);
-      container.appendChild(row);
-      container.scrollTop = container.scrollHeight;
+    function setBusy(b) {
+      busy = b;
+      sendBtn.disabled = b || !input.value.trim();
     }
 
-    function removeTyping() {
-      const el = document.getElementById('typing-row');
-      if (el) el.remove();
+    async function ask(text) {
+      document.getElementById("ask").scrollIntoView({ behavior: "smooth" });
+      input.value = text;
+      await send();
     }
 
-    async function sendMessage() {
-      const input = document.getElementById('input');
+    async function send() {
       const text = input.value.trim();
-      if (!text || loading) return;
+      if (!text || busy) return;
+      input.value = ""; input.style.height = "auto";
+      setBusy(true);
+      addMessage("user", text);
+      history.push({ role: "user", content: text });
 
-      loading = true;
-      document.getElementById('sendBtn').disabled = true;
-      input.value = ''; input.style.height = 'auto';
+      const bubble = addMessage("assistant", "");
+      bubble.innerHTML = '<span class="typing" aria-label="Green is typing"><i></i><i></i><i></i></span>';
 
-      addMessage('user', text);
-      history.push({ role: 'user', content: text });
-      showTyping();
-
-      try {
-        const res = await fetch('https://api.anthropic.com/v1/messages', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            model: 'claude-sonnet-4-20250514',
-            max_tokens: 1000,
-            system: SYSTEM,
-            messages: history
-          })
-        });
-        const data = await res.json();
-        const reply = data?.content?.map(b => b.text || '').join('') || 'Lost my signal 🌿 Try again?';
-        removeTyping();
-        addMessage('assistant', reply);
-        history.push({ role: 'assistant', content: reply });
-      } catch {
-        removeTyping();
-        addMessage('assistant', 'Lost my signal through the canopy 🍃 Please try again.');
+      if (!API_URL) {
+        bubble.innerHTML = renderMarkdown("I'm not connected yet 🌿 The site owner needs to deploy the backend and set **API_URL** in index.html (see worker/README.md).");
+        history.pop();
+        setBusy(false);
+        return;
       }
 
-      loading = false;
-      document.getElementById('sendBtn').disabled = false;
+      let reply = "";
+      try {
+        const res = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: history }),
+        });
+        if (!res.ok || !res.body) throw new Error("HTTP " + res.status);
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          reply += decoder.decode(value, { stream: true });
+          bubble.innerHTML = renderMarkdown(reply);
+          messagesEl.scrollTop = messagesEl.scrollHeight;
+        }
+        reply += decoder.decode();
+        if (!reply.trim()) throw new Error("empty reply");
+        bubble.innerHTML = renderMarkdown(reply);
+        history.push({ role: "assistant", content: reply });
+      } catch (err) {
+        console.error(err);
+        bubble.innerHTML = renderMarkdown("Lost my signal through the canopy 🍃 Please try again.");
+        history.pop(); // let the user resend
+      }
+      setBusy(false);
+      input.focus();
     }
 
-    function handleKey(e) {
-      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+    function reset() {
+      history = [];
+      messagesEl.innerHTML = "";
+      addMessage("assistant", GREETING);
     }
 
-    function autoResize(el) {
-      el.style.height = 'auto';
-      el.style.height = Math.min(el.scrollHeight, 120) + 'px';
-      document.getElementById('sendBtn').disabled = !el.value.trim();
-    }
-
-    // Initial greeting
-    addMessage('assistant', 'Hey there 🍏 I\'m Green — your calm, grounded AI companion. What\'s growing on your mind today?');
+    input.addEventListener("input", () => {
+      input.style.height = "auto";
+      input.style.height = Math.min(input.scrollHeight, 140) + "px";
+      sendBtn.disabled = busy || !input.value.trim();
+    });
+    input.addEventListener("keydown", e => {
+      if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
+    });
+    sendBtn.onclick = send;
+    document.getElementById("resetBtn").onclick = reset;
+    reset();
   </script>
 </body>
 </html>
