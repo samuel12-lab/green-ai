@@ -1,0 +1,13 @@
+name = "green-ai"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# Comma-separated list of sites allowed to call this worker.
+# Add your custom domain here once you have one, e.g.
+# "https://samuel12-lab.github.io,https://www.greentech.earth"
+ALLOWED_ORIGINS = "https://samuel12-lab.github.io,http://localhost:8000"
+
+# The API key is a secret, never put it in this file. Set it with:
+#   npx wrangler secret put ANTHROPIC_API_KEY
